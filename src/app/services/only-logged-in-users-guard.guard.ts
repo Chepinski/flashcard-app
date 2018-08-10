@@ -19,7 +19,6 @@ export class OnlyLoggedInUsersGuardGuard implements CanActivate {
       return true;
     } else {
       //window.alert("You don't have permission to view this page"); 
-      console.log("You don't have permission to view this page");
       return false;
     }
   }

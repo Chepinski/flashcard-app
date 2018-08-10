@@ -1,0 +1,14 @@
+<div class="card btn-sect" *ngIf="isTeach()">
+	<div class="card-content">
+		<span class="card-title">Add Subject</span>
+		<form (ngSubmit)="onSubmit()">
+			<div class="row">
+				<div class="input-field col-md-6">
+					<input type="text" placeholder="Add subject" name="subject" [(ngModel)]="doc.subject">
+					<label class="text-center center">Subject</label>
+				</div>
+			</div>
+			<input type="submit" value="Submit" class="btn add-card-btn col-md-12">			
+		</form>
+	</div>
+</div>

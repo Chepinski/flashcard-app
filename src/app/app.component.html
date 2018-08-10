@@ -1,16 +1,18 @@
-<header>
-        <nav>
-            <div>
-                <h1><a [routerLink]="['/login']"><img src="../assets/logo.png" alt="logo"></a></h1>
-            </div>
+<header><!--navigation-->
+    <nav>
+        <div>
+            <h1>
+                <a [routerLink]="['/login']"><img src="../assets/logo.png" alt="logo"></a>
+            </h1>
+        </div>
 
-            <ul>
-              <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"><a [routerLink]="['/about_us']">About</a></li>
-              <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"><a [routerLink]="['/login']">Login</a></li>
-              <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"><a *ngIf="showLink()" [routerLink]="['deck']">Cards</a></li>
-              <li><a (click)="tryLogout()"  *ngIf="showLink()" [routerLink]="['deck']">Logout</a>       
-            </ul>
-        </nav>
-    </header>
-    
-  <router-outlet></router-outlet>
+        <ul>
+            <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"><a [routerLink]="['/about_us']">About<i class="fa fa-user-circle fa-fw" aria-hidden="true"></i></a></li>
+            <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"><a *ngIf="!showLink()" [routerLink]="['/login']">Login<i class="fa fa-sign-in fa-fw" aria-hidden="true"></i></a></li>
+            <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"><a *ngIf="showLink()" [routerLink]="['deck']">Decks<i class="fa fa-address-card-o fa-fw" aria-hidden="true"></i></a></li>
+            <li><a (click)="tryLogout()" *ngIf="showLink()" [routerLink]="['deck']">Logout<i class="fa fa-sign-out fa-fw" aria-hidden="true"></i></a>
+        </ul>
+    </nav>
+</header>
+
+<router-outlet></router-outlet>

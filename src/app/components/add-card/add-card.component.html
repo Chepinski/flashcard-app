@@ -1,18 +1,19 @@
+<!--add a card to this deck-->
 <div class="card btn-sect" *ngIf="isTeach()">
-	<div class="card-content">
-		<span class="card-title">Add Card</span>
-		<form (ngSubmit)="onSubmit()">
-			<div class="row">
-				<div class="input-field col-md-6">
-					<input type="text" placeholder="Add question" name="question" [(ngModel)]="card.question">
-					<label class="text-center center">Question</label>
-				</div>
-				<div class="input-field col-md-6">
-					<input type="text" placeholder="Add answer" name="answer" [(ngModel)]="card.answer">
-					<label>Answer</label>
-				</div>
-			</div>
-			<input type="submit" value="Submit" class="btn add-card-btn col-md-12">
-		</form>
-	</div>
+    <div class="card-content">
+        <span class="card-title">Add Card</span>
+        <form (ngSubmit)="onSubmit()">
+            <div class="row">
+                <div class="input-field col-md-6">
+                    <input type="text" placeholder="Add question" name="question" [(ngModel)]="card.question">
+                    <label class="text-center center">Question</label>
+                </div>
+                <div class="input-field col-md-6">
+                    <input type="text" placeholder="Add answer" name="answer" [(ngModel)]="card.answer">
+                    <label>Answer</label>
+                </div>
+            </div>
+            <input type="submit" value="Submit" class="btn add-card-btn col-md-12">
+        </form>
+    </div>
 </div>

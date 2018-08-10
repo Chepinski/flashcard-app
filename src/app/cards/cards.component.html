@@ -1,23 +1,13 @@
-<!--<div *ngIf="cards?.length > 0;else noCards">
-	<ul *ngFor="let card of cards" class="collection">
-		<li class="collection-card">{{card.question}}</li>
-		<li class="collection-card">{{card.answer}}</li>
-	</ul>
-
-</div>-->
-
-
-
+<!--display decks in database-->
 <div class="col-md-12">
-	<ul id="cardList" class="col-md-6 center">
-			<h2 class="h2"><u>Decks </u><small class="text-muted center">Click on title to study</small></h2>
-		<li *ngFor="let deck of decks let i = index" [id]="deck" class="col-md-12 center row text-capitalize m-5"><a class="col-md-6"(click)="findDeck(i)">{{deck.id}}</a><div class="text-right" *ngIf="isTeach()"><div><button class="delete-btn btn btn-danger btn-sm justify-content-end" (click)="deleteDeck(i)">Delete</button></div></div></li>
-	</ul>
+    <ul id="cardList" class="col-md-6 center">
+        <h2 class="h2"><u>Decks </u><small class="text-muted center">Click on title to study</small></h2>
+        <li *ngFor="let deck of decks let i = index" [id]="deck" class="col-md-12 center row text-capitalize m-5"><a class="col-md-6 text-capitalize" (click)="findDeck(i)">{{deck.id}}</a>
+            <div class="text-right" *ngIf="isTeach()">
+                <div><button class="delete-btn btn btn-danger btn-sm justify-content-end" (click)="deleteDeck(i)">Delete</button></div>
+            </div>
+        </li>
+    </ul>
 </div>
-
-
-<!--<div class="col-md-12 text-center mt-4">
-		<button id="edit-card-btn" class="btn m-2">Edit</button>
-		<button id="del-card-btn" class="btn btn-danger">Delete</button>
-	</div>-->
-	
+<!-- add deck has strange user permissions that won't allow me to add...I could though ;)
+<app-add-deck></app-add-deck>-->

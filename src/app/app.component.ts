@@ -2,9 +2,6 @@ import { Component } from '@angular/core';
 import { Router,RouterModule } from '@angular/router';
 import { AuthService } from './services/auth.service';
 
-
-
-
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -18,15 +15,14 @@ export class AppComponent{
 
   constructor(router:Router, authService:AuthService){this.router=router;}
 
- showLink(){
+ showLink(){//show deck page if user is logged in
  	if(this.router.url === '/deck'){
  		this.login = true;
  	}
  	return this.login;
  }
 
- tryLogout(){
+ tryLogout(){//i mean..it's named 'tryLogout'...it logs the user out
     this.authService.doLogout(); 
-    console.log('in app comp try logout');   
   }
 }

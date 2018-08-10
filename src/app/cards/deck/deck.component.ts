@@ -4,7 +4,7 @@ import { AuthService } from '../../services/auth.service';
 import { Router, Params } from '@angular/router';
 import { Card } from '../../models/Card';
 
-import {
+import {//import support for card flipping animation
 	trigger,
 	state,
 	style,
@@ -27,76 +27,106 @@ import {
       visibility: 'hidden',
     })),
 
-    transition('front => back', animate('300ms ease-in')),
+    transition('front => back', animate('300ms ease-in')),//take 3ms to flip card
     ]),
 	]
 })
-export class DeckComponent implements OnInit {
+export class DeckComponent implements OnInit
+{
 
-	cards:Card[];//array of cards/a deck
-  index=0;//initiate index 
-  currentDeck:string;
-  currentQuestion:string;//this.currentQuestion from cards/deck
-  currentAnswer:string;//this.currentAnswer from cards/deck
-  stateFront: string = 'front'; stateBack: string = 'back';//beginning states for flip transitions
+  cards: Card[]; //array of cards/a deck
+  index = 0; //initiate index 
+  currentDeck: string;
+  currentQuestion: string; //this.currentQuestion from cards/deck
+  currentAnswer: string; //this.currentAnswer from cards/deck
+  stateFront: string = 'front';stateBack: string = 'back'; //beginning states for flip transitions
   router: Router;
   teach: boolean;
 
-  constructor(private cardService: CardsService, private authService:AuthService, router:Router) {
-  	this.router=router;
+  constructor(private cardService: CardsService, private authService: AuthService, router: Router)
+  {
+    this.router = router;
   }
 
-  ngOnInit() {
-  	this.cardService.getCards().subscribe(cards =>{
-  		this.cards = cards;//make a place in array for each card in deck and place in cards[]
-  		if(cards.length>0){
-        this.currentQuestion=this.cards[this.index].question;//populate currentQuestion binding with 0th question in cards array
-        this.currentAnswer=this.cards[this.index].answer;//populate currentAnswer
-        this.currentDeck=this.authService.deck;
+  ngOnInit()
+  {
+    this.cardService.getCards().subscribe(cards =>
+    {
+      this.cards = cards; //make a place in array for each card in deck and place in cards[]
+      if (cards.length > 0)
+      {
+        this.currentQuestion = this.cards[this.index].question; //populate currentQuestion binding with 0th question in cards array
+        this.currentAnswer = this.cards[this.index].answer; //populate currentAnswer
+        this.currentDeck = this.authService.deck; //current working deck in deck array
       }
     });
 
   }
-  getQuestion(){
-    this.currentQuestion=this.cards[this.index].question;//update question
-    console.log(this.cards[this.index])
+  getQuestion()
+  {
+    this.currentQuestion = this.cards[this.index].question; //update question
   }
 
-  getAnswer(){
-    this.currentAnswer=this.cards[this.index].answer;//update answer
+  getAnswer()
+  {
+    this.currentAnswer = this.cards[this.index].answer; //update answer
   }
 
-  changeCardState(){
+  changeCardState() //update contents of card that is showing
+  {
     this.stateFront = (this.stateFront == 'front' ? 'back' : 'front');
-    this.stateBack = (this.stateBack == 'front' ? 'back': 'front');
+    this.stateBack = (this.stateBack == 'front' ? 'back' : 'front');
   }
 
-  nextCard(){
-    console.log('current question: '+this.cards[0]);
-    if(this.stateFront=='back'){//flip card to answer on back
-    	this.changeCardState();
+  nextCard(id: string)
+  {
+    if (this.stateFront == 'back')
+    { //flip card to answer on back
+      this.changeCardState();
     }
-    if(this.index<this.cards.length-1){//if additional cards exist, get next question & answer
-    	console.log("button clicked.  index: "+this.index);
-    	this.index++;
-    	console.log("after index: "+this.index);
-    	this.getQuestion();
-    	this.getAnswer();
+    if (id == 'nxt_btn')//if next clicked
+    {
+      if (this.index < this.cards.length - 1)
+      { //if additional cards exist, get next question & answer
+        this.index++;
+      }
+      else
+      {
+        this.index = 0;
+      }
+      this.getQuestion();
+      this.getAnswer();
+    }
+    else if (id == 'prev_btn')//if previous clicked
+    {
+      if (this.index > 0)
+      {
+        this.index--;
+      }
+      else
+      {
+        this.index = this.cards.length - 1;
+      }
+      this.getQuestion();
+      this.getAnswer();
+    }
 
-    }
-    else{
-    	this.index=-1;
-      this.nextCard();//recursively call next card      
+    else
+    {
+      this.index = -1;
+      this.nextCard('nxt_btn'); //recursively call next card      
     }
   }
 
-deleteCard(event){//delete card in deck
-  this.cardService.deleteCard(this.cards[this.index]);
-  length-=1;
-  this.nextCard();
-}
+  deleteCard(event)
+  { //delete card in deck
+    this.cardService.deleteCard(this.cards[this.index]);
+    length -= 1;
+    this.nextCard('nxt_btn');
+  }
 
-isTeach():boolean{
+  isTeach(): boolean//is the user allowed to edit?
+  {
     this.teach = this.authService.instr;
     return this.teach;
   }

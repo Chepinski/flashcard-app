@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';//import Angular animations (for cardflip)
 import { NgModule } from '@angular/core';
 import 'bootstrap/dist/css/bootstrap.css';
+import fontawesome from '@fortawesome/fontawesome-free';
 
 import { AppComponent } from './app.component';
 

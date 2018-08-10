@@ -10,13 +10,7 @@ import { Router, Params } from '@angular/router';
   styleUrls: ['./cards.component.css']
 })
 export class CardsComponent implements OnInit {
-
-	cards:Card[];//array of cards/a deck
   decks:Card[];
-  index=0;//initiate index 
-  currentQuestion:string;//this.currentQuestion from cards/deck
-  currentAnswer:string;//this.currentAnswer from cards/deck
-  stateFront: string = 'front'; stateBack: string = 'back';//beginning states for flip transitions
   router: Router;
   teach:boolean;
 
@@ -28,28 +22,24 @@ export class CardsComponent implements OnInit {
   ngOnInit() {
     this.cardService.getDeck().subscribe(decks =>{
       this.decks = decks;//make a place in array for each deck
-      if(decks.length>0){
-        console.log('deck: '+this.decks[0].id);
-      }
     });
   }
 
-  findDeck(loc){    
+  findDeck(loc){//show deck once chosen
     this.authService.setDeck(this.decks[loc].id);
     this.router.navigate(['/cards']);
   }
 
-  isTeach():boolean{
+  isTeach():boolean{//confirm if authorized to edit
     this.teach = this.authService.instr;
     return this.teach;
   }
 
   deleteDeck(loc){//delete card in deck
-    console.log(this.decks[loc].id);
     this.cardService.deleteDeck(this.decks[loc]);
   }
 
-  tryLogout(){
+  tryLogout(){//logout
     this.authService.doLogout();    
   }
 }
